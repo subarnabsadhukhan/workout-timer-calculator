@@ -2,15 +2,25 @@ import { memo, useEffect, useState } from "react";
 import clickSound from "./ClickSound.m4a";
 
 function Calculator({ workouts, allowSound }) {
+  const [userInteracted, setUserInteracted] = useState(false);
   const [number, setNumber] = useState(workouts.at(0).numExercises);
   const [sets, setSets] = useState(3);
   const [speed, setSpeed] = useState(90);
   const [durationBreak, setDurationBreak] = useState(5);
   const [duration, setDuration] = useState(0);
 
-  // const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
+
+  useEffect(() => {
+    function handleUserInteraction() {
+      setUserInteracted(true);
+    }
+
+    document.addEventListener("click", handleUserInteraction);
+
+    return () => document.removeEventListener("click", handleUserInteraction);
+  }, []);
 
   useEffect(() => {
     setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak);
@@ -18,12 +28,12 @@ function Calculator({ workouts, allowSound }) {
 
   useEffect(() => {
     function playSound() {
-      if (!allowSound) return;
+      if (!allowSound || !userInteracted) return;
       const sound = new Audio(clickSound);
       sound.play();
     }
     playSound();
-  }, [allowSound, duration]);
+  }, [allowSound, duration, userInteracted]);
   function handleDec() {
     setDuration((duration) => (duration >= 1 ? Math.ceil(duration) - 1 : 0));
   }
