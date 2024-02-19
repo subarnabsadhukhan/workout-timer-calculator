@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/workout-timer-calculator/static/css/main.98da1142.css",
+    "main.js": "/workout-timer-calculator/static/js/main.1e1cfafc.js",
+    "static/media/ClickSound.m4a": "/workout-timer-calculator/static/media/ClickSound.f7e8f889fedabc8d298c.m4a",
+    "index.html": "/workout-timer-calculator/index.html",
+    "main.98da1142.css.map": "/workout-timer-calculator/static/css/main.98da1142.css.map",
+    "main.1e1cfafc.js.map": "/workout-timer-calculator/static/js/main.1e1cfafc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.98da1142.css",
+    "static/js/main.1e1cfafc.js"
+  ]
+}
