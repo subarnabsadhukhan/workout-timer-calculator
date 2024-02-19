@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import clickSound from "./ClickSound.m4a";
 
 function Calculator({ workouts, allowSound }) {
@@ -12,27 +12,24 @@ function Calculator({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-  const playSound = useCallback(
+  useEffect(() => {
+    setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak);
+  }, [durationBreak, number, sets, speed]);
+
+  useEffect(() => {
     function playSound() {
       if (!allowSound) return;
       const sound = new Audio(clickSound);
       sound.play();
-    },
-    [allowSound]
-  );
-  useEffect(() => {
-    setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak);
+    }
     playSound();
-  }, [durationBreak, number, sets, speed, playSound]);
-
+  }, [allowSound, duration]);
   function handleDec() {
     setDuration((duration) => (duration >= 1 ? Math.ceil(duration) - 1 : 0));
-    playSound();
   }
 
   function handleInc() {
     setDuration((duration) => Math.floor(duration) + 1);
-    playSound();
   }
 
   return (
